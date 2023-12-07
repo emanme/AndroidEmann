@@ -6,6 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -25,10 +26,16 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
 
     private List<Student> studentList;
     private Context context;
+    private OnItemClickListener itemClickListener;
 
-    public StudentAdapter(Context context) {
+    public interface OnItemClickListener {
+        void onItemClick(Student student);
+    }
+
+    public StudentAdapter(Context context, OnItemClickListener itemClickListener) {
         this.context = context;
         this.studentList = getAllStudents();
+        this.itemClickListener = itemClickListener;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -40,6 +47,17 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
             nameTextView = itemView.findViewById(R.id.nameTextView);
             courseTextView = itemView.findViewById(R.id.courseTextView);
             avatar = itemView.findViewById(R.id.imageViewAvatar);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Student student = studentList.get(position);
+                        itemClickListener.onItemClick(student);
+                    }
+                }
+            });
         }
     }
 

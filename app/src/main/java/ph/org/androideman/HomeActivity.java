@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,7 +17,7 @@ import ph.org.androideman.adapter.StudentAdapter;
 import ph.org.androideman.helper.DatabaseHelper;
 import ph.org.androideman.model.Student;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements StudentAdapter.OnItemClickListener  {
 
     private StudentAdapter adapter;
 
@@ -28,9 +30,9 @@ public class HomeActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
 
-        insertSampleStudents();
+        //insertSampleStudents();
 
-        adapter = new StudentAdapter(this);
+        adapter = new StudentAdapter(this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -56,4 +58,19 @@ public class HomeActivity extends AppCompatActivity {
 
         db.close();
     }
+
+    @Override
+    public void onItemClick(Student student) {
+        // Handle the click event here
+        String message = "Selected Student: " +
+                "ID: " + student.getId() +
+                ", Name: " + student.getName() +
+                ", Course: " + student.getCourse();
+
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Log.d("CLICK", message);
+
+
+    }
+
 }

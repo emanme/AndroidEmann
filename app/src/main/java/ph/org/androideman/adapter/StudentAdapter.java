@@ -22,7 +22,7 @@ import ph.org.androideman.helper.DatabaseHelper;
 import ph.org.androideman.helper.HashConverter;
 import ph.org.androideman.model.Student;
 
-public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHolder> {
+public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHolder>  {
 
     private List<Student> studentList;
     private Context context;
@@ -110,7 +110,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.ViewHold
         db.close();
         return students;
     }
-    private void getAvatarResource(String studentId, ImageView avatar) {
+    public static void getAvatarResource(String studentId, ImageView avatar) {
         int id = Integer.parseInt(studentId);
         String hash = HashConverter.sha256(id+"");
         String imageUrl = "https://robohash.org/"+hash+"?set=set5&bgset=&size=100x100";

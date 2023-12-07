@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import java.util.UUID;
-
 public class LoginOfflineActivity extends AppCompatActivity {
 
     @Override
